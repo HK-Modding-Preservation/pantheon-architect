@@ -1,0 +1,20 @@
+{
+  "name": "PantheonArchitect",
+  "description": "Design and play custom Pantheon 5 lineups with shareable codes. Create your perfect boss gauntlet!",
+  "version": "1.0.0",
+  "links": {
+    "homepage": "",
+    "source": "",
+    "issues": ""
+  },
+  "dependencies": {
+    "Modding API": ">=2.0.0.0"
+  },
+  "authors": [
+    "ULTRA"
+  ],
+  "tags": [
+    "Gameplay",
+    "Godhome"
+  ]
+}
