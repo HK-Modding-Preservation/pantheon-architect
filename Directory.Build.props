@@ -1,0 +1,13 @@
+<Project>
+  <PropertyGroup>
+    <!-- Set these paths to match your installation -->
+    <!-- Example Windows: C:\Program Files (x86)\Steam\steamapps\common\Hollow Knight\hollow_knight_Data\Managed -->
+    <!-- Example Linux: ~/.steam/steam/steamapps/common/Hollow Knight/hollow_knight_Data/Managed -->
+    <HollowKnightRefs>C:\Program Files (x86)\Steam\steamapps\common\Hollow Knight\hollow_knight_Data\Managed</HollowKnightRefs>
+    
+    <!-- Optional: Set this to auto-copy the mod after building -->
+    <!-- Example Windows: %USERPROFILE%\AppData\LocalLow\Team Cherry\Hollow Knight\Mods -->
+    <!-- Example Linux: ~/.config/unity3d/Team Cherry/Hollow Knight/Mods -->
+    <HollowKnightMods>C:\Program Files (x86)\Steam\steamapps\common\Hollow Knight\hollow_knight_Data\Managed\Mods</HollowKnightMods>
+  </PropertyGroup>
+</Project>
