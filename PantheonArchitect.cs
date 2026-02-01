@@ -47,10 +47,10 @@ namespace PantheonArchitect
             "GG_Ghost_Marmu_V",    // 16. Marmu
             "GG_Flukemarm",        // 17. Flukemarm
             "GG_Broken_Vessel",    // 18. Broken Vessel
-            "GG_Galien",           // 19. Galien
+            "GG_Ghost_Galien",     // 19. Galien
             "GG_Painter",          // 20. Paintmaster Sheo
             "GG_Hive_Knight",      // 21. Hive Knight
-            "GG_Ghost_Hu",       // 22. Elder Hu
+            "GG_Ghost_Hu",         // 22. Elder Hu
             "GG_Collector_V",      // 23. The Collector
             "GG_God_Tamer",        // 24. God Tamer
             "GG_Grimm",            // 25. Troupe Master Grimm
@@ -61,7 +61,7 @@ namespace PantheonArchitect
             "GG_Hornet_2",         // 30. Hornet Sentinel
             "GG_Crystal_Guardian_2",// 31. Enraged Guardian
             "GG_Lost_Kin",         // 32. Lost Kin
-            "GG_Ghost_NoEyes_V",   // 33. No Eyes
+            "GG_Ghost_No_Eyes_V",   // 33. No Eyes
             "GG_Traitor_Lord",     // 34. Traitor Lord
             "GG_White_Defender",   // 35. White Defender
             "GG_Soul_Tyrant",      // 36. Soul Tyrant
