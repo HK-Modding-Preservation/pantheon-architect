@@ -26,49 +26,51 @@ namespace PantheonArchitect
 
         public override string GetVersion() => "1.0.0.0";
 
-        // Pantheon 5 boss scenes in order
+        // Pantheon 5 boss scenes (based on actual Pantheon of Hallownest)
         private readonly List<string> pantheon5Bosses = new List<string>
         {
-            "GG_Vengefly_V",       // Vengefly King
-            "GG_Gruz_Mother_V",    // Gruz Mother
-            "GG_False_Knight",     // False Knight
-            "GG_Mega_Moss_Charger",// Massive Moss Charger
-            "GG_Hornet_1",         // Hornet Protector
-            "GG_Gorb_V",           // Gorb
-            "GG_Dung_Defender",    // Dung Defender
-            "GG_Mage_Knight_V",    // Soul Warrior
-            "GG_Brooding_Mawlek_V",// Brooding Mawlek
-            "GG_Nailmasters",      // Oro & Mato
-            "GG_Flukemarm",        // Flukemarm
-            "GG_Broken_Vessel",    // Broken Vessel
-            "GG_Ghost_Galien_V",   // Galien
-            "GG_Painter",          // Paintmaster Sheo
-            "GG_Hive_Knight",      // Hive Knight
-            "GG_Ghost_Hu_V",       // Elder Hu
-            "GG_Collector_V",      // The Collector
-            "GG_God_Tamer",        // God Tamer
-            "GG_Grimm",            // Troupe Master Grimm
-            "GG_Ghost_Marmu_V",    // Marmu
-            "GG_Nosk_Hornet",      // Nosk
-            "GG_Sly",              // Great Nailsage Sly
-            "GG_Hornet_2",         // Hornet Sentinel
-            "GG_Ghost_Xero_V",     // Xero
-            "GG_Crystal_Guardian_2",// Crystal Guardian
-            "GG_Soul_Master",      // Soul Master
-            "GG_Ghost_Markoth_V",  // Markoth
-            "GG_Watcher_Knights",  // Watcher Knights
-            "GG_Grey_Prince_Zote", // Grey Prince Zote
-            "GG_Failed_Champion",  // Failed Champion
-            "GG_Ghost_NoEyes_V",   // No Eyes
-            "GG_Traitor_Lord",     // Traitor Lord
-            "GG_White_Defender",   // White Defender
-            "GG_Ghost_Aladar_V",   // Gorb (duplicate entry corrected)
-            "GG_Lost_Kin",         // Lost Kin
-            "GG_Ghost_MU_V",       // Markoth (duplicate entry corrected)
-            "GG_Uumuu_V",          // Uumuu
-            "GG_Nosk",             // Nosk
-            "GG_Mantis_Lords_V",   // Sisters of Battle
-            "GG_Radiance"          // Absolute Radiance (final boss - should not be randomized)
+            "GG_Vengefly_V",       // 1. Vengefly King x2
+            "GG_Gruz_Mother_V",    // 2. Gruz Mother
+            "GG_False_Knight",     // 3. False Knight
+            "GG_Mega_Moss_Charger",// 4. Massive Moss Charger
+            "GG_Hornet_1",         // 5. Hornet Protector
+            "GG_Ghost_Gorb_V",     // 6. Gorb
+            "GG_Dung_Defender",    // 7. Dung Defender
+            "GG_Mage_Knight_V",    // 8. Soul Warrior
+            "GG_Brooding_Mawlek_V",// 9. Brooding Mawlek
+            "GG_Nailmasters",      // 10. Oro & Mato
+            "GG_Ghost_Xero_V",     // 11. Xero
+            "GG_Crystal_Guardian", // 12. Crystal Guardian
+            "GG_Soul_Master",      // 13. Soul Master
+            "GG_Oblobbles",        // 14. Oblobbles
+            "GG_Mantis_Lords_V",   // 15. Sisters of Battle
+            "GG_Ghost_Marmu_V",    // 16. Marmu
+            "GG_Flukemarm",        // 17. Flukemarm
+            "GG_Broken_Vessel",    // 18. Broken Vessel
+            "GG_Galien",           // 19. Galien
+            "GG_Painter",          // 20. Paintmaster Sheo
+            "GG_Hive_Knight",      // 21. Hive Knight
+            "GG_Ghost_Hu",       // 22. Elder Hu
+            "GG_Collector_V",      // 23. The Collector
+            "GG_God_Tamer",        // 24. God Tamer
+            "GG_Grimm",            // 25. Troupe Master Grimm
+            "GG_Watcher_Knights",  // 26. Watcher Knights
+            "GG_Uumuu_V",          // 27. Uumuu
+            "GG_Nosk_Hornet",      // 28. Winged Nosk
+            "GG_Sly",              // 29. Great Nailsage Sly
+            "GG_Hornet_2",         // 30. Hornet Sentinel
+            "GG_Crystal_Guardian_2",// 31. Enraged Guardian
+            "GG_Lost_Kin",         // 32. Lost Kin
+            "GG_Ghost_NoEyes_V",   // 33. No Eyes
+            "GG_Traitor_Lord",     // 34. Traitor Lord
+            "GG_White_Defender",   // 35. White Defender
+            "GG_Soul_Tyrant",      // 36. Soul Tyrant
+            "GG_Ghost_Markoth_V",  // 37. Markoth
+            "GG_Grey_Prince_Zote", // 38. Grey Prince Zote (skipped if conditions not met)
+            "GG_Failed_Champion",  // 39. Failed Champion
+            "GG_Grimm_Nightmare",  // 40. Nightmare King Grimm
+            "GG_Hollow_Knight",    // 41. Pure Vessel
+            "GG_Radiance"          // 42. Absolute Radiance
         };
 
         private List<string>? randomizedOrder = null;
@@ -270,7 +272,7 @@ namespace PantheonArchitect
             for (int i = 0; i < lineup.Count; i++)
             {
                 int index = pantheon5Bosses.IndexOf(lineup[i]);
-                if (index >= 0 && index < 40) // Valid boss index
+                if (index >= 0 && index < pantheon5Bosses.Count) // Valid boss/bench index
                 {
                     data[i + 1] = (byte)index;
                 }
@@ -313,7 +315,7 @@ namespace PantheonArchitect
                 for (int i = 0; i < length; i++)
                 {
                     int index = data[i + 1];
-                    if (index >= 0 && index < 40) // Valid boss index
+                    if (index >= 0 && index < pantheon5Bosses.Count) // Valid boss/bench index
                     {
                         lineup.Add(pantheon5Bosses[index]);
                     }
