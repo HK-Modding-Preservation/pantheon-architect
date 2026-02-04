@@ -24,7 +24,7 @@ namespace PantheonArchitect
             }
         }
 
-        public override string GetVersion() => "1.0.0.0";
+        public override string GetVersion() => "1.0.0.3";
 
         // Pantheon 5 boss scenes (based on actual Pantheon of Hallownest)
         private readonly List<string> pantheon5Bosses = new List<string>
@@ -80,6 +80,7 @@ namespace PantheonArchitect
         private bool inPantheon5 = false;
         private string customLineupCode = ""; // Stores the current custom lineup code if used
         private bool isCustomLineup = false; // True if using custom lineup instead of random seed
+        private bool needsBenchAfterRadiance = false; // Flag to insert bench after AbsRad
         
         // UI Elements
         private GameObject lineupInputCanvas;
@@ -154,6 +155,13 @@ namespace PantheonArchitect
         {
             Log($"Scene changed from '{from.name}' to '{to.name}', inPantheon5={inPantheon5}");
             
+            // Auto-trigger exit from bench scene inserted after Absolute Radiance
+            if (to.name == "GG_Spa" && from.name == "GG_Radiance" && inPantheon5)
+            {
+                Log("Entered bench after Absolute Radiance - will auto-exit in 3 seconds");
+                GameManager.instance.StartCoroutine(AutoExitBench());
+            }
+            
             // Reset if we return to Godhome after completing custom lineup
             if (inPantheon5 && (to.name == "GG_Atrium" || to.name == "GG_Atrium_Roof" || to.name.Contains("GG_Workshop")))
             {
@@ -193,6 +201,14 @@ namespace PantheonArchitect
                 Log("==============================================");
             }
 
+            // If we need to insert a bench after Absolute Radiance
+            if (needsBenchAfterRadiance && pantheon5Bosses.Contains(targetScene))
+            {
+                Log("Inserting bench scene after Absolute Radiance to restore UI");
+                needsBenchAfterRadiance = false;
+                return "GG_Spa"; // Standard bench scene with exit trigger
+            }
+            
             // If we have a randomized order and this is a P5 boss scene
             if (randomizedOrder != null && pantheon5Bosses.Contains(targetScene))
             {
@@ -201,6 +217,15 @@ namespace PantheonArchitect
                 {
                     string nextBoss = randomizedOrder[currentBossIndex];
                     currentBossIndex++;
+                    
+                    // Special handling for Absolute Radiance when she's not the final boss
+                    // Set flag to insert a bench after her to restore UI
+                    if (nextBoss == "GG_Radiance" && currentBossIndex < randomizedOrder.Count)
+                    {
+                        Log($"Absolute Radiance is not final boss - will insert bench after (Boss {currentBossIndex}/{randomizedOrder.Count})");
+                        needsBenchAfterRadiance = true;
+                    }
+                    
                     Log($"Redirecting from {targetScene} to {nextBoss} (Boss {currentBossIndex}/{randomizedOrder.Count})");
                     return nextBoss;
                 }
@@ -535,6 +560,44 @@ namespace PantheonArchitect
                 {
                     currentLineupText.text = "No lineup loaded";
                 }
+            }
+        }
+
+        private System.Collections.IEnumerator AutoExitBench()
+        {
+            Log("Player entered bench scene - waiting for UI restoration...");
+            
+            // Wait for player to sit at bench and restore UI
+            // Player should sit automatically or manually
+            yield return new WaitForSeconds(3f);
+            
+            Log("Attempting to teleport player to exit door...");
+            
+            // Find the exit door
+            GameObject exitDoor = null;
+            yield return new WaitForSeconds(0.5f);
+            
+            exitDoor = GameObject.Find("door_dreamReturn");
+            if (exitDoor == null)
+                exitDoor = GameObject.Find("Dream Return");
+            if (exitDoor == null)
+                exitDoor = GameObject.Find("door1");
+            
+            if (exitDoor != null && HeroController.instance != null)
+            {
+                Log($"Found exit door: {exitDoor.name}, teleporting player...");
+                
+                // Teleport player to the exit door position
+                var hero = HeroController.instance.transform;
+                var targetPos = exitDoor.transform.position;
+                targetPos.y += 1f; // Slightly above the door
+                hero.position = targetPos;
+                
+                Log("Player teleported to exit door - they should transition automatically");
+            }
+            else
+            {
+                Log("Could not find exit door or hero controller - player may need to exit manually");
             }
         }
 
